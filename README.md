@@ -1,4 +1,4 @@
-# First Publisher/Subscriber ROS package
+# ROS package for ROS Services, Logging and Launch files
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 -----------------------
 ## Overview
@@ -14,8 +14,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ```
 ## Dependencies
 
-1. Ubuntu 18.04
-2. ROS Melodic
+[![Ubuntu 18.04](https://img.shields.io/badge/Ubuntu18.04-Clickhere-brightgreen.svg?style=flat)](https://releases.ubuntu.com/18.04/)  
+[![ROS Melodic](https://img.shields.io/badge/ROSMelodic-Clickhere-brightgreen.svg?style=flat)](http://wiki.ros.org/melodic/Installation/Ubuntu)
 
 ## Build your package
 ```
@@ -25,7 +25,20 @@ git clone https://github.com/Prat33k-dev/beginner_tutorials.git
 cd <your_workspace_name>
 catkin_make
 ```
-## Running
+## Running with launch file
+1. Running launch file with frequency argument
+```
+cd <your_workspace_name>
+source devel/setup.bash
+roslaunch beginner_tutorials ServiceDemo.launch set_fquency:=<your_frequency_argument>
+```
+2. Running launch file without frequency argument (default will set to 20Hz)
+```
+cd <your_workspace_name>
+source devel/setup.bash
+roslaunch beginner_tutorials ServiceDemo.launch
+```
+## Running with individual node
 Open your workspace in new terminal
 ```
 roscore
@@ -39,6 +52,20 @@ rosrun beginner_tutorials talker
 ```
 source devel/setup.bash
 rosrun beginner_tutorials listener
+```
+## Using Rosservice to change base string
+```
+source devel/setup.bash
+rosservice call /SrvChgStr "data: '<your_string>'"
+```
+## Visualize logging messages
+1. In new terminal 
+```
+rosrun rqt_console rqt_console
+```
+2. In another terminal
+```
+rosrun rqt_logger_level rqt_logger_level
 ```
 ## Run cppcheck and cpplint
 * The Output txt files will be saved under results folder  
