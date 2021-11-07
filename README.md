@@ -2,7 +2,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 -----------------------
 ## Overview
-This repository consist a publisher and subscriber node in C++. The publisher `talker.cpp` publishes a string message on the rostopic "/chatter" and along with this the subscriber `listener.cpp` subscribes to that topic and prints corresponding output received.
+This repository consist a publisher and subscriber node in C++. The publisher `talker.cpp` publishes a string message on the rostopic "/chatter" and along with this the subscriber `listener.cpp` subscribes to that topic and prints corresponding output received.  
+Also consist Ros service to change base string output, log messages for all verbosity levels used by rosconsole and launch file with argument to set frequency for talker node publish rate.
 
 ## License
 MIT License  
