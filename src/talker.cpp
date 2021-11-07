@@ -31,13 +31,30 @@
  */
 #include <ros/ros.h>
 #include <std_msgs/String.h>
-
 #include <sstream>
+#include "beginner_tutorials/Str.h"
+
+//  Initialize value to a string to publish
+extern std::string pub_msg = "Hello from Patrick";
+/**
+ * @brief A service Fucntion for changing the output string of the publisher.
+ * @param req service request
+ * @param res service response
+ * @return returns true when string changes
+ */
+bool SetString(beginner_tutorials::Str::Request &req,
+               beginner_tutorials::Str::Response &res)
+{
+  res.output = req.data;
+  pub_msg = req.data;
+  return true;
+}
 
 /**
- * This tutorial demonstrates simple sending of messages over the ROS system.
+ * This tutorial demonstrates simple sending of messages over the ROS sys tem.
  */
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
    * any ROS arguments and name remapping that were provided at the command line.
@@ -57,6 +74,9 @@ int main(int argc, char **argv) {
    */
   ros::NodeHandle n;
 
+  // To create service and advertise over ROS.
+  ros::ServiceServer service = n.advertiseService("SrvChgStr", &SetString);
+
   /**
    * The advertise() function is how you tell ROS that you want to
    * publish on a given topic name. This invokes a call to the ROS
@@ -74,27 +94,23 @@ int main(int argc, char **argv) {
    * than we can send them, the number here specifies how many messages to
    * buffer up before throwing some away.
    */
-  ros::Publisher chatter_pub = n.advertise < std_msgs::String
-      > ("chatter", 1000);
 
-  ros::Rate loop_rate(10);
+  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+  // Setting default frequency for 20 Hz
+  int frequency = 20;
+  ros::Rate loop_rate(frequency);
 
-  /**
-   * A count of how many messages we have sent. This is used to create
-   * a unique string for each message.
-   */
-  int count = 0;
-  while (ros::ok()) {
+  while (ros::ok())
+  {
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
     std_msgs::String msg;
-
     std::stringstream ss;
-    ss << "Ros says: " << count;
+    ss << "ROS says: " << pub_msg;
     msg.data = ss.str();
 
-    ROS_INFO("%s", msg.data.c_str());
+    ROS_INFO_STREAM("%s" << msg.data.c_str());
 
     /**
      * The publish() function is how you send messages. The parameter
@@ -107,7 +123,6 @@ int main(int argc, char **argv) {
     ros::spinOnce();
 
     loop_rate.sleep();
-    ++count;
   }
 
   return 0;
