@@ -35,7 +35,7 @@
 #include "beginner_tutorials/Str.h"
 
 //  Initialize value to a string to publish
-  extern std::string pub_msg = "Hello from Patrick";
+extern std::string pub_msg = "Hello from Patrick";
 /**
  * @brief A service Fucntion for changing the output string of the publisher.
  * @param req service request
