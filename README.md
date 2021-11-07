@@ -67,6 +67,8 @@ rosrun rqt_console rqt_console
 ```
 rosrun rqt_logger_level rqt_logger_level
 ```
+* Visualization Output
+![Visualization Output](results/rqt_logger.png)
 ## Run cppcheck and cpplint
 * The Output txt files will be saved under results folder  
 
