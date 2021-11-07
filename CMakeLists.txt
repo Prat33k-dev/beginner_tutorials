@@ -9,12 +9,21 @@ add_compile_options(-std=c++11)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  rospy
   std_msgs
+  genmsg
+  message_generation
+
 )
 
 ## Set C++11 standard for cmake project
 set(CMAKE_CXX_STANDARD 11)
+
+add_service_files(
+  FILES
+  Str.srv
+)
+
+generate_messages(DEPENDENCIES std_msgs)
 
 catkin_package(
 #  INCLUDE_DIRS include
@@ -32,13 +41,13 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/beginner_tutorials_node.cpp)
 add_executable(talker src/talker.cpp)
 target_link_libraries(talker ${catkin_LIBRARIES})
+add_dependencies(talker beginner_tutorials_generate_messages_cpp)
 
 add_executable(listener src/listener.cpp)
 target_link_libraries(listener ${catkin_LIBRARIES})
