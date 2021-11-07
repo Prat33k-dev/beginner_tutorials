@@ -30,7 +30,7 @@ catkin_make
 ```
 cd <your_workspace_name>
 source devel/setup.bash
-roslaunch beginner_tutorials ServiceDemo.launch set_fquency:=<your_frequency_argument>
+roslaunch beginner_tutorials ServiceDemo.launch set_frequency:=<your_frequency_argument>
 ```
 2. Running launch file without frequency argument (default will set to 20Hz)
 ```
