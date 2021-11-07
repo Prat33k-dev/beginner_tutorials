@@ -127,7 +127,7 @@ int main(int argc, char **argv) {
      */
     std_msgs::String msg;
     std::stringstream ss;
-    ss << "ROS says: " << pub_msg;
+    ss << "ROS says " << pub_msg;
     msg.data = ss.str();
 
     ROS_INFO_STREAM("%s" << msg.data.c_str());
