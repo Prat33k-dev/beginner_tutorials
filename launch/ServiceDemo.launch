@@ -1,0 +1,5 @@
+<launch>
+    <arg name="set_frequency" default="20"/>
+    <node pkg = "beginner_tutorials" type = "talker" name = "pub_node" output = "screen" args="$(arg set_frequency)" />
+    <node pkg = "beginner_tutorials" type = "listener" name = "sub_node" output = "screen" />
+</launch>
