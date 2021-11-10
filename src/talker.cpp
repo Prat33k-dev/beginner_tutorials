@@ -25,12 +25,13 @@
  * @author Pratik Bhujnbal
  * @brief  publisher ("talker") node which will continually broadcast a message
  * @version 1.0
- * @date 11/05/2021
+ * @date 11/07/2021
  * @copyright  Copyright (c) 2021
  * 
  */
 #include <ros/ros.h>
 #include <std_msgs/String.h>
+#include <tf/transform_broadcaster.h>
 #include <sstream>
 #include "beginner_tutorials/Str.h"
 
@@ -43,7 +44,8 @@ extern std::string pub_msg = "Hello from Patrick";
  * @return returns true when string changes
  */
 bool SetString(beginner_tutorials::Str::Request &req,
-               beginner_tutorials::Str::Response &res) {
+               beginner_tutorials::Str::Response &res)
+{
   res.output = req.data;
   pub_msg = req.data;
   ROS_DEBUG_STREAM("Initial String changed to : " << req.data);
@@ -53,7 +55,8 @@ bool SetString(beginner_tutorials::Str::Request &req,
 /**
  * This tutorial demonstrates simple sending of messages over the ROS sys tem.
  */
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
    * any ROS arguments and name remapping that were provided at the command line.
@@ -62,10 +65,9 @@ int main(int argc, char **argv) {
    * the easiest way to do it.  The third argument to init() is the name of the node.
    *
    * You must call one of the versions of ros::init() before using any other
-   * part of the ROS system.
+   * part of the ROS system.simple_rostest
    */
   ros::init(argc, argv, "talker");
-
   /**
    * NodeHandle is the main access point to communications with the ROS system.
    * The first NodeHandle constructed will fully initialize this node, and the last
@@ -94,26 +96,31 @@ int main(int argc, char **argv) {
    * buffer up before throwing some away.
    */
 
-  ros::Publisher chatter_pub = n.advertise < std_msgs::String
-      > ("chatter", 1000);
+  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
   // Setting default frequency for 20 Hz
   int frequency = 20;
-  if (argc > 0) {
+  if (argc > 1)
+  {
     frequency = atoi(argv[1]);
   }
   // Stream information once about frequency set from argument
   ROS_INFO_STREAM_ONCE("Set frequency= " << frequency);
-  if (frequency <= 0) {
+  if (frequency <= 0)
+  {
     // If frequency is negative or zero- Fatal
     ROS_FATAL_STREAM("Frequency must be greater than zero !");
     ROS_DEBUG_STREAM("Changing to default value i.e. 20 Hz");
     frequency = 20;
-  } else if (frequency > 100) {
+  }
+  else if (frequency > 100)
+  {
     // If frequency is greater than expected- ERROR
     ROS_ERROR_STREAM("Expected frequency is less than 100 Hz");
     ROS_DEBUG_STREAM("Changing to default value i.e. 20 Hz");
     frequency = 20;
-  } else if (0 < frequency && frequency < 5) {
+  }
+  else if (0 < frequency && frequency < 5)
+  {
     // If frequency is less than 5 and greater than 0- WARN
     ROS_WARN_STREAM("Input Frequency too low");
     ROS_DEBUG_STREAM("Changing to default value i.e. 20 Hz");
@@ -121,7 +128,22 @@ int main(int argc, char **argv) {
   }
   ros::Rate loop_rate(frequency);
 
-  while (ros::ok()) {
+  // Creates a TransformBroadcaster object
+  static tf::TransformBroadcaster pb;
+  // Creates a Transform object
+  tf::Transform transform;
+  // Creates a Quaternion object
+  tf::Quaternion quat;
+  while (ros::ok())
+  {
+
+    // Send the transformations
+    transform.setOrigin(tf::Vector3(1, 4, 3));
+    quat.setRPY(0, 0, 90);
+    transform.setRotation(quat);
+    pb.sendTransform(
+        tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
+
     /**
      * This is a message object. You stuff it with data, and then publish it.
      */
@@ -130,7 +152,7 @@ int main(int argc, char **argv) {
     ss << "ROS says " << pub_msg;
     msg.data = ss.str();
 
-    ROS_INFO_STREAM("%s" << msg.data.c_str());
+    ROS_INFO_STREAM(msg.data.c_str());
 
     /**
      * The publish() function is how you send messages. The parameter
