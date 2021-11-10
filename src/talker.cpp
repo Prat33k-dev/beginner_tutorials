@@ -44,19 +44,16 @@ extern std::string pub_msg = "Hello from Patrick";
  * @return returns true when string changes
  */
 bool SetString(beginner_tutorials::Str::Request &req,
-               beginner_tutorials::Str::Response &res)
-{
+               beginner_tutorials::Str::Response &res) {
   res.output = req.data;
   pub_msg = req.data;
   ROS_DEBUG_STREAM("Initial String changed to : " << req.data);
   return true;
 }
-
 /**
  * This tutorial demonstrates simple sending of messages over the ROS sys tem.
  */
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
    * any ROS arguments and name remapping that were provided at the command line.
@@ -74,7 +71,6 @@ int main(int argc, char **argv)
    * NodeHandle destructed will close down the node.
    */
   ros::NodeHandle n;
-
   // To create service and advertise over ROS.
   ros::ServiceServer service = n.advertiseService("SrvChgStr", &SetString);
 
@@ -96,31 +92,26 @@ int main(int argc, char **argv)
    * buffer up before throwing some away.
    */
 
-  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+  ros::Publisher chatter_pub = n.advertise < std_msgs::String
+      > ("chatter", 1000);
   // Setting default frequency for 20 Hz
   int frequency = 20;
-  if (argc > 1)
-  {
+  if (argc > 1) {
     frequency = atoi(argv[1]);
   }
   // Stream information once about frequency set from argument
   ROS_INFO_STREAM_ONCE("Set frequency= " << frequency);
-  if (frequency <= 0)
-  {
+  if (frequency <= 0) {
     // If frequency is negative or zero- Fatal
     ROS_FATAL_STREAM("Frequency must be greater than zero !");
     ROS_DEBUG_STREAM("Changing to default value i.e. 20 Hz");
     frequency = 20;
-  }
-  else if (frequency > 100)
-  {
+  } else if (frequency > 100) {
     // If frequency is greater than expected- ERROR
     ROS_ERROR_STREAM("Expected frequency is less than 100 Hz");
     ROS_DEBUG_STREAM("Changing to default value i.e. 20 Hz");
     frequency = 20;
-  }
-  else if (0 < frequency && frequency < 5)
-  {
+  } else if (0 < frequency && frequency < 5) {
     // If frequency is less than 5 and greater than 0- WARN
     ROS_WARN_STREAM("Input Frequency too low");
     ROS_DEBUG_STREAM("Changing to default value i.e. 20 Hz");
@@ -134,9 +125,7 @@ int main(int argc, char **argv)
   tf::Transform transform;
   // Creates a Quaternion object
   tf::Quaternion quat;
-  while (ros::ok())
-  {
-
+  while (ros::ok()) {
     // Send the transformations
     transform.setOrigin(tf::Vector3(1, 4, 3));
     quat.setRPY(0, 0, 90);

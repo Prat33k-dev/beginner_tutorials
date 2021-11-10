@@ -41,20 +41,17 @@ std::shared_ptr<ros::NodeHandle> nh;
  * @brief: This test checks for service exisst or not
  * @return: none
  */
-TEST(TESTSuite, serviceCheck)
-{
+TEST(TESTSuite, serviceCheck) {
   ros::ServiceClient client = nh->serviceClient<beginner_tutorials::Str>(
       "SrvChgStr");
   bool exists(client.waitForExistence(ros::Duration(1)));
   EXPECT_TRUE(exists);
 }
-
 /*
  * @brief: This test checks for service where string has changed or not
  * @return: none
  */
-TEST(TESTSuite, serviceOutput)
-{
+TEST(TESTSuite, serviceOutput) {
   ros::ServiceClient client = nh->serviceClient<beginner_tutorials::Str>(
       "SrvChgStr");
   beginner_tutorials::Str srv;
@@ -64,8 +61,7 @@ TEST(TESTSuite, serviceOutput)
 }
 
 int main(int argc,
-         char **argv)
-{
+         char **argv) {
   ros::init(argc, argv, "service_test_node");
   nh.reset(new ros::NodeHandle);
   testing::InitGoogleTest(&argc, argv);
