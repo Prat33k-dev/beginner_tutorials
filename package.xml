@@ -19,10 +19,8 @@
   <!-- Url tags are optional, but multiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/beginner_tutorials</url> -->
-
-
-  <!-- Author tags are optional, multiple are allowed, one per tag -->
+  <!-- <url type="website">h
+  <exec_depend>tf</exec_depend>nal, multiple are allowed, one per tag -->
   <!-- Authors do not have to be maintainers, but could be -->
   <!-- Example: -->
   <author email="pbhujbal@umd.edu">pratik bhujbal</author>
@@ -55,8 +53,7 @@
   <build_export_depend>std_msgs</build_export_depend>
   <exec_depend>roscpp</exec_depend>
   <exec_depend>std_msgs</exec_depend>
-
-
+  <depend>rostest</depend>
   <!-- The export tag contains other, unspecified, tags -->
   <export>
     <!-- Other tools can request additional information be placed here -->
