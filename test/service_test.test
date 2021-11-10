@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <launch>
     <node pkg = "beginner_tutorials" type = "talker" name = "pub_node"/>
-  <test pkg="beginner_tutorials" test-name="service_test" type="service_test"/>
+    <test pkg="beginner_tutorials" test-name="service_test" type="service_test"/>
 </launch>

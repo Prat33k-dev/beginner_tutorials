@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2021 Pratik Bhujnbal
+ * Copyright (c) 2021 Pratik Bhujbal
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to 
@@ -22,7 +22,7 @@
  * DEALINGS IN THE SOFTWARE. 
  * 
  * @file listener.cpp
- * @author Pratik Bhujnbal
+ * @author Pratik Bhujbal
  * @brief  publisher ("talker") node which will continually broadcast a message
  * @version 1.0
  * @date 11/07/2021
