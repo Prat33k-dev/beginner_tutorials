@@ -12,7 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   genmsg
   message_generation
-
+  tf
 )
 
 ## Set C++11 standard for cmake project
@@ -52,3 +52,24 @@ add_dependencies(talker beginner_tutorials_generate_messages_cpp)
 add_executable(listener src/listener.cpp)
 target_link_libraries(listener ${catkin_LIBRARIES})
 
+#############
+## Testing ##
+#############
+
+if(CATKIN_ENABLE_TESTING)
+  find_package(rostest REQUIRED)
+
+  add_rostest_gtest(service_test
+  test/service_test.test
+  test/service_test.cpp
+  )
+  target_link_libraries(
+    service_test
+  ${catkin_LIBRARIES}
+  )
+  add_dependencies(
+    service_test
+  ${PROJECT_NAME}_generate_messages_cpp
+  ${catkin_EXPORTED_TARGETS}
+  )
+endif()
